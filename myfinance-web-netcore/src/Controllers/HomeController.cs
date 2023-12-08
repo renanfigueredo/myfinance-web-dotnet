@@ -13,7 +13,7 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index()
+    public IActionResult Index() //! devemos colocar o mesmo nome do arquivo dentro da pasta View
     {
         return View();
     }
