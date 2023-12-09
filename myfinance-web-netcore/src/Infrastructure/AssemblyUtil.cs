@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection; //@ significa que vc vai usar dados do seu proprio projeto
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace myfinance_web_netcore.Infrastructure
 {

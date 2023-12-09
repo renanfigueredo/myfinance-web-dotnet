@@ -8,8 +8,7 @@ namespace myfinance_web_netcore.Mappers
     {
         public TransacaoMap()
         {
-            CreateMap<Transacao, TransacaoModel>().ReverseMap(); //@ garante que a conversão seja feita dos dois lados 
+            CreateMap<Transacao, TransacaoModel>().ReverseMap();
         }
-
     }
 }

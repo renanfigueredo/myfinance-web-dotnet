@@ -12,6 +12,6 @@ namespace myfinance_web_netcore.Models
         public DateTime Data { get; set; }
 
         public IEnumerable<PlanoContaModel> ListaPlanoConta { get; set; }
-        public IEnumerable<SelectListItem> PlanoContas { get; set; } //* essa parte vai fazer a lista de opções para lançar as transações
+        public IEnumerable<SelectListItem> PlanoContas { get; set; }
     }
 }

@@ -6,8 +6,9 @@ namespace myfinance_web_netcore.Mappers
 {
     public class PlanoContaMap : Profile
     {
-        public PlanoContaMap(){
-            CreateMap<PlanoConta, PlanoContaModel>().ReverseMap(); //@ garante que a conversão seja feita dos dois lados 
+        public PlanoContaMap()
+        {
+            CreateMap<PlanoConta, PlanoContaModel>().ReverseMap();
         }
 
     }

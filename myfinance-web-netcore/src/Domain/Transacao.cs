@@ -6,11 +6,9 @@ namespace myfinance_web_netcore.Domain
         public string Historico { get; set; }
         public string Tipo { get; set; }
         public decimal Valor { get; set; }
-        public int PlanoContaId { get; set; } //! Como no DB essa info é uma chave estrangeira, precisamos lincar com a fonte dela tbm ...
+        public int PlanoContaId { get; set; }
         public DateTime Data { get; set; }
 
-        public PlanoConta PlanoConta { get; set; } //! ... Com isso, criamos um objeto para o PlanoConta
-
+        public PlanoConta PlanoConta { get; set; }
     }
 }
-//* Podemos pegar os mesmos nomes das colunas que estão no DB

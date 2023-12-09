@@ -1,9 +1,8 @@
 ﻿@model PlanoContaModel 
 
 @{
-    ViewData["Title"] = "Cadastro de Plano de Contas"; @** nesse caso o cód C# está manipulando o titulo da view *@
+    ViewData["Title"] = "Cadastro de Plano de Contas";
 }
-
 
 <h1>@ViewData["Title"]</h1>
 
@@ -11,7 +10,7 @@
     <div class="container">
         <div class="mb-3">
             <label class="form-label">Descrição</label>
-            <input type="hidden" id="txtId" class="form-control" asp-for="Id"> @*@ é esse carinha que é passado para a Função de Salvar *@
+            <input type="hidden" id="txtId" class="form-control" asp-for="Id">
             <input type="text" id="txtNome" class="form-control" asp-for="Descricao">  
         </div>
 
@@ -33,7 +32,3 @@
         window.location.href = "../PlanoConta/Index";
     }
 </script>
-
-@*! CSHTML = possibilita escrever cód C# (back-end) junto com html (Front-end), todo cód C# que for adicionado deve estar dentor de @{} *@
-@*@ Os formulários são enviados para a controladora *@
-@*$ Esses "asp-for" sãoe funções lambida "(m => m.Tipo, "R")" são responsáveis por passar os valores que são processados em Salvar, editar e excluir  *@

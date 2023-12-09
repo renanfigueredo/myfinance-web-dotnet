@@ -1,7 +1,7 @@
 ﻿@model TransacaoModel
 
 @{
-    ViewData["Title"] = "Registro de Transações"; @** nesse caso o cód C# está manipulando o titulo da view *@
+    ViewData["Title"] = "Registro de Transações";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -11,7 +11,7 @@
 
         <div class="mb-3">
             <label class="form-label">Data</label>
-            <input type="date" id="txtData" class="form-control" asp-for="Data">
+            <input type="date" id="txtData" class="form-control" asp-for="Data" >
         </div>
 
         <div class="mb-3">
@@ -22,7 +22,7 @@
         <div class="mb-3">
             <label class="form-label">Item Plano Conta</label>
             <br>
-            @Html.DropDownListFor(m => m.PlanoContaId, Model.PlanoContas, new { @class = "from-select" }) @*@ qual é o id que foi selecionado para passar para as funções de transação *@
+            @Html.DropDownListFor(m => m.PlanoContaId, Model.PlanoContas, new { @class = "from-select" })
              <input type="hidden" id="txtTipo" class="form-control" asp-for="Tipo">
         </div>
 
@@ -39,12 +39,6 @@
             <input type="text" id="txtNome" class="form-control" asp-for="Historico">
         </div>
 
-@*
-        <div class="mb-3">
-            <label>@Html.RadioButtonFor(m => m.Tipo, "D") Despesa</label>
-            <label>@Html.RadioButtonFor(m => m.Tipo, "R") Receita</label>
-        </div>
-*@
         <div class="mb-3">
             <button type="submit" class="btn btn-primary btn-lg">Salvar</button>
             <button type="button" class="btn btn-secondary btn-lg" onclick="Voltar()">Cancelar</button>
@@ -58,7 +52,6 @@
         window.location.href = "../Transacao/Index";
     }
 
-//* tentando fazer o lançamento mudar de cor :
     var select = document.getElementById('PlanoContaId');
     select.addEventListener('change', selecionaItemPlanoConta);
 
@@ -66,10 +59,4 @@
         var tipoSelecionado = document.getElementById(select.value);
         document.getElementById("txtTipo").value = tipoSelecionado.innerHTML; 
     }
-
-
 </script>
-
-@*! CSHTML = possibilita escrever cód C# (back-end) junto com html (Front-end), todo cód C# que for adicionado deve estar dentor de @{} *@
-@*@ Os formulários são enviados para a controladora *@
-@*$ Esses "asp-for" sãoe funções lambida "(m => m.Tipo, "R")" são responsáveis por passar os valores que são processados em Salvar, editar e excluir *@

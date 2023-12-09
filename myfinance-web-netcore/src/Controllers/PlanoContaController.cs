@@ -25,10 +25,9 @@ public class PlanoContaController : Controller
     [HttpGet]
     [Route("Cadastro")]
     [Route("Cadastro/{id}")]
-
-    public IActionResult Cadastro(int? id) //@ nesse caso, passando ou não o ID a operação é realizada
+    public IActionResult Cadastro(int? id)
     {
-        if (id != null) //@ se eu receber um valor de Id diferente de null o cód busca as info para serem tratadas
+        if (id != null)
         {
             var registro = _planoContaService.RetornarRegistro((int)id); //$ (int)id) é uma conversão para garantir que chegue numeros 
             return View(registro);
@@ -40,7 +39,6 @@ public class PlanoContaController : Controller
     [HttpPost]
     [Route("Cadastro")]
     [Route("Cadastro/{id}")]
-
     public IActionResult Cadastro(PlanoContaModel model)
     {
         _planoContaService.Salvar(model);
@@ -49,35 +47,17 @@ public class PlanoContaController : Controller
 
     [HttpGet]
     [Route("Excluir/{id}")]
-
     public IActionResult Excluir(int id)
     {
         _planoContaService.Excluir(id);
         return RedirectToAction("Index");
     }
 
-[HttpGet]
+    [HttpGet]
     [Route("Index")]
-    public IActionResult Index() //! devemos colocar o mesmo nome do arquivo dentro da pasta View
+    public IActionResult Index()
     {
-        //! NO COD REAL, TIRAR ESSSA PARTE ! { .....
-        //* Quando não usamos AutoMapper temos que fazer tudo isso aqui: 
-        //    List<PlanoContaModel> listaPlanoContaModel = new();
-
-        //     foreach ( var item in _planoContaService.ListarPlanoContas()){
-
-        //         var planoConta = new PlanoContaModel(){  //@ cria a tabela com os dados pegos no DB, essa parte é chamada de mapeamento, no caso, esse mapeamento foi feito ná mão ( o que não é muito recomendado ...)
-        //             Id = item.Id,
-        //             Descricao = item.Descricao,
-        //             Tipo = item.Tipo
-        //         };
-        //         listaPlanoContaModel.Add(planoConta);
-        //     }
-
-        // ViewBag.ListarPlanoConta =  listaPlanoContaModel; //@ essa view guarda todos os dados da lista plano contas e apresenta na tela depois, somente ela, não manda os dados para a tela (por isso temos usar o loop acima para completar a tabela)
-        //! ......}
-
-        var listaPlanoConta = _planoContaService.ListarPlanoContas(); //* quando usamos o mapeamento, fica dessa forma a passagem dos dados
+        var listaPlanoConta = _planoContaService.ListarPlanoContas();
         ViewBag.ListarPlanoConta = listaPlanoConta;
 
         return View();

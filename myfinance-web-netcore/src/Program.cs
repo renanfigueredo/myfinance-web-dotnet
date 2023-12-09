@@ -1,28 +1,20 @@
-using myfinance_web_netcore.Domain;
 using myfinance_web_netcore.Infrastructure;
 using myfinance_web_netcore.Mappers;
 using myfinance_web_netcore.Services;
 
-var builder = WebApplication.CreateBuilder(args); //@ a classe program, tem como função criar o serviço web (um host)
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews(); //@ informa que vamos utilizar controladores com views (padrão MVC)
-builder.Services.AddDbContext<MyFinanceDbContext>();  //@ Informamos a aplicação qual a classe realiza a conexão com o DB
+builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<MyFinanceDbContext>();
 builder.Services.AddAutoMapper(typeof(PlanoContaMap));
 builder.Services.AddAutoMapper(typeof(TransacaoMap));
 
 //Services
-builder.Services.AddTransient<IPlanoContaService, PlanoContaService>(); //* <Primeiro a interface depois a classe>
+builder.Services.AddTransient<IPlanoContaService, PlanoContaService>();
 builder.Services.AddTransient<ITransacaoService, TransacaoService>();
 
-//UseCases
-
-//Repositories
-
-//Aplications
-
-
-var app = builder.Build();  //$ Builder é um objeto criacional que te ajuda um objeto complexo seguindo um passo a passo (Builder é um design partenes)
+var app = builder.Build(); 
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -33,7 +25,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles(); //@ informa que sua aplicação pode acessar arquivos do tipo CSS, JS, Imagens ... desde que estejam na pasta "wwwroot"
+app.UseStaticFiles();
 
 app.UseRouting();
 
@@ -41,6 +33,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"); //! define o padrão de roteamento, sendo a default: "home / index / id" ( esse ultimo é opcional, se não passar o programa roda normal) 
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.Run(); //@ ela define tudo que tem que ser feito e no final retorna um app.Run
+app.Run();

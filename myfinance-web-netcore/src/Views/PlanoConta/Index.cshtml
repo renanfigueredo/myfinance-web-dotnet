@@ -1,7 +1,6 @@
 ﻿@{
-    ViewData["Title"] = "Listagem de Plano de Contas";  @** nesse caso o cód C# está manipulando o titulo da view *@
+    ViewData["Title"] = "Listagem de Plano de Contas"; 
 }
-
 
 <button type="button" class="btn btn-block btn-primary" onclick="Novo()">Criar item de Plano de Conta</button>
 <br><br>
@@ -27,9 +26,7 @@
             </tr>    
         }
 }
-
 </table>
-
 
 <script>
     function Novo(){
@@ -44,6 +41,3 @@
         window.location.href = "../PlanoConta/Excluir/" +id;
     }
 </script>
-
-@*! CSHTML = possibilita escrever cód C# (back-end) junto com html (Front-end), todo cód C# que for adicionado deve estar dentor de @{} *@
-@*@ Os scripts alteram o caminho da pag para a opção selecionada *@

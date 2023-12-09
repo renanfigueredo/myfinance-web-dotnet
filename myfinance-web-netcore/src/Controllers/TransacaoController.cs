@@ -8,27 +8,27 @@ using myfinance_web_netcore.Services;
 namespace myfinance_web_netcore.Controllers;
 
 [Route("[controller]")]
-public class TransacaoController : Controller  //! como copiamos a classe PlanoConta, devemos alterar todas as referencias dela para a classe nova ! 
+public class TransacaoController : Controller
 {
     private readonly ILogger<TransacaoController> _logger;
     private readonly IMapper _mapper;
     private readonly ITransacaoService _transacaoService;
 
     private readonly IPlanoContaService _planoContaService;
-    
+
     public TransacaoController(ILogger<TransacaoController> logger, IMapper mapper, ITransacaoService transacaoService, IPlanoContaService planoContaService)
     {
         _logger = logger;
         _mapper = mapper;
         _transacaoService = transacaoService;
-        _planoContaService =  planoContaService;
+        _planoContaService = planoContaService;
     }
 
     [HttpGet]
     [Route("Index")]
-    public IActionResult Index() //! devemos colocar o mesmo nome do arquivo dentro da pasta View
+    public IActionResult Index()
     {
-        var listaTransacao = _transacaoService.ListarTransacoes(); //* quando usamos o mapeamento, fica dessa forma a passagem dos dados
+        var listaTransacao = _transacaoService.ListarTransacoes();
         ViewBag.ListaTransacao = listaTransacao;
 
         return View();
@@ -37,20 +37,18 @@ public class TransacaoController : Controller  //! como copiamos a classe PlanoC
     [HttpGet]
     [Route("Cadastro")]
     [Route("Cadastro/{id}")]
-
-    public IActionResult Cadastro(int? id) //@ nesse caso, passando ou não o ID a operação é realizada
+    public IActionResult Cadastro(int? id)
     {
-
         var transacaoModel = new TransacaoModel();
 
-        if (id != null) //@ se eu receber um valor de Id diferente de null o cód busca as info para serem tratadas
+        if (id != null)
         {
-            transacaoModel = _transacaoService.RetornarRegistro((int)id); //$ (int)id) é uma conversão para garantir que chegue numeros 
+            transacaoModel = _transacaoService.RetornarRegistro((int)id);
 
         }
 
-        var listaPlanoConta = _planoContaService.ListarPlanoContas(); //* já está passando uma lista de plano conta model
-        var planoContaSelectItens = new SelectList(listaPlanoConta, "Id" , "Descricao");
+        var listaPlanoConta = _planoContaService.ListarPlanoContas();
+        var planoContaSelectItens = new SelectList(listaPlanoConta, "Id", "Descricao");
         transacaoModel.ListaPlanoConta = listaPlanoConta;
         transacaoModel.PlanoContas = planoContaSelectItens;
 
@@ -60,7 +58,6 @@ public class TransacaoController : Controller  //! como copiamos a classe PlanoC
     [HttpPost]
     [Route("Cadastro")]
     [Route("Cadastro/{id}")]
-
     public IActionResult Cadastro(TransacaoModel model)
     {
         _transacaoService.Salvar(model);
@@ -75,7 +72,6 @@ public class TransacaoController : Controller  //! como copiamos a classe PlanoC
         _transacaoService.Excluir(id);
         return RedirectToAction("Index");
     }
-
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

@@ -4,9 +4,6 @@ using myfinance_web_netcore.Domain;
 using myfinance_web_netcore.Infrastructure;
 using myfinance_web_netcore.Models;
 
-
-
-
 namespace myfinance_web_netcore.Services
 {
     public class TransacaoService : ITransacaoService
@@ -15,36 +12,35 @@ namespace myfinance_web_netcore.Services
 
         private readonly IMapper _mapper;
         public TransacaoService(MyFinanceDbContext myFinanceDbContext, IMapper mapper )
-        {   //@ Construtor da classe, pega a info e repassa
+        { 
             _myFinanceDbContext = myFinanceDbContext;
             _mapper = mapper;
         }
 
         public void Excluir(int id)
         {
-            var item = _myFinanceDbContext.Transacao.Where(x => x.Id == id).First(); //@ vai lá no banco de dados buscar o elemento que tem o Id requerido "Where(x => x.Id == id )" e volta o valor do elemento que aparece primeiro ".First()"
-            _myFinanceDbContext.Transacao.Attach(item);  //@ Para realizar alterações nos dados
+            var item = _myFinanceDbContext.Transacao.Where(x => x.Id == id).First();
+            _myFinanceDbContext.Transacao.Attach(item);
             _myFinanceDbContext.Transacao.Remove(item);
-            _myFinanceDbContext.SaveChanges(); //@ toda alteração dos dados devem finalizar com o SaveChanges" para garantir que vai ser salvo. !! Por garantia, deixa ele sempre no final da função!!
+            _myFinanceDbContext.SaveChanges();
         }
 
         public IEnumerable<TransacaoModel> ListarTransacoes()
         {
-            var listaTransacao = _myFinanceDbContext.Transacao.ToList(); //@ vai lá no banco de dados buscar a lista, por isso o tipo é uma entidade de dominio 
-            var lista = _mapper.Map<IEnumerable<TransacaoModel>>(listaTransacao); //@ Mapeia e retorna para o DOM : "IEnumerable<TransacaoModel"
+            var listaTransacao = _myFinanceDbContext.Transacao.ToList();
+            var lista = _mapper.Map<IEnumerable<TransacaoModel>>(listaTransacao);
             return lista;
         }
 
         public TransacaoModel RetornarRegistro(int id)
         {
-            var item = _myFinanceDbContext.Transacao.Where(x => x.Id == id).First(); //@ vai lá no banco de dados buscar o elemento que tem o Id requerido "Where(x => x.Id == id )" e volta o valor do elemento que aparece primeiro ".First()"
-            var lista = _mapper.Map<TransacaoModel>(item); //@ Mapeia e retorna para o DOM : "IEnumerable<TransacaoModel"
+            var item = _myFinanceDbContext.Transacao.Where(x => x.Id == id).First();
+            var lista = _mapper.Map<TransacaoModel>(item); 
             return lista;
         }
 
         public void Salvar(TransacaoModel model)
         {
-            //* Mapeamento Manual: { ......
             var instancia = new Transacao()
             {
                 Id = model.Id,
@@ -54,20 +50,17 @@ namespace myfinance_web_netcore.Services
                 PlanoContaId = model.PlanoContaId,
                 Tipo = model.Tipo
             };
-            //*  ...}
 
             if (instancia.Id == null)
             {
-                _myFinanceDbContext.Transacao.Add(instancia);//* aqui precisa receber uma entidade de DOM, para isso devemos realizar o mapeamento dela (Comandos de cima). Só passar a var não garante que vai ser salvo por isso rodamos o comando "SaveChanges()" 
+                _myFinanceDbContext.Transacao.Add(instancia);
             }
             else
             {
-                _myFinanceDbContext.Transacao.Attach(instancia); //@ Para realizar alterações nos dados
-                _myFinanceDbContext.Entry(instancia).State = EntityState.Modified; //! Toda vez que vamos realizar uma alteração nos dados precisamos "avisar" o cód
+                _myFinanceDbContext.Transacao.Attach(instancia); 
+                _myFinanceDbContext.Entry(instancia).State = EntityState.Modified;
             }
-            _myFinanceDbContext.SaveChanges(); //@ toda alteração dos dados devem finalizar com o SaveChanges" para garantir que vai ser salvo. !! Por garantia, deixa ele sempre no final da função!!
+            _myFinanceDbContext.SaveChanges();
         }
     }
 }
-//* _myFinanceDbContext é um objeto do tipo dbSet por isso ele consegue acessar todas as propriedades do db
-//* antes de refatorar, a lista era 
